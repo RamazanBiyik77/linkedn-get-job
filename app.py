@@ -36,7 +36,7 @@ def token_required(f):
 @token_required
 def getJobDetail():
     req_data=request.get_json()
-    api = Linkedin(email, password)
+    api = Linkedin('ramazan_biyik@outlook.com', 'Shadowfax2243')
     connection = api.get_job(job_id=req_data['id'])
     return connection['description']['text']
  

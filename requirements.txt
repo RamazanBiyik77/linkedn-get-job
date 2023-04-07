@@ -1,4 +1,5 @@
 python3-linkedin
-flask
+python3-flask
+linkedin_api
 json
 python-dotenv
