@@ -6,11 +6,19 @@ from linkedin_api import Linkedin
 import crypt, secrets
 from threading import Thread
 from threading import Lock
-
+from requests.cookies import cookiejar_from_dict
 app = Flask(__name__)
 api_key = os.environ.get('api-key')
 email = os.environ.get('linkedn_email')
 password = os.environ.get('linkedn_password')
+
+cookies = cookiejar_from_dict(
+    {
+        "liap": "true",
+        "li_at": os.environ["LINKEDIN_COOKIE_LI_AT"],
+        "JSESSIONID": os.environ["LINKEDIN_COOKIE_JSESSIONID"],
+    }
+)
 
 def logging_decorator(f):
     @functools.wraps(f)
@@ -36,7 +44,7 @@ def token_required(f):
 @token_required
 def getJobDetail():
     req_data=request.get_json()
-    api = Linkedin('ramazan_biyik@outlook.com', 'Shadowfax2243')
+    api = Linkedin('','', cookies=cookies)
     connection = api.get_job(job_id=req_data['id'])
     return connection['description']['text']
  
